@@ -1,8 +1,7 @@
 import 'package:azkar_al_muslim/app/Home_screen/bottomNB.dart';
 import 'package:azkar_al_muslim/app/cubit/app_cubit.dart';
 import 'package:azkar_al_muslim/app/plash_screen/plash_screen.dart';
-import 'package:azkar_al_muslim/test/secondtest.dart';
-import 'package:azkar_al_muslim/test/test.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
