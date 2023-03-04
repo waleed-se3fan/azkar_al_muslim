@@ -42,6 +42,7 @@ dependencies:
   google_maps_flutter: ^2.2.3
   flutter_qiblah: ^2.1.0
   adhan_dart: ^1.0.8
+  http:
 
 dev_dependencies:
   flutter_test:

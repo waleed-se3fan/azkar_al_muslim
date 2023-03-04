@@ -16,6 +16,8 @@ class SplashScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             body: Container(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height / 3),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -23,10 +25,19 @@ class SplashScreen extends StatelessWidget {
                     child: Image.asset(
                       'images/splash.png',
                       color: Colors.white,
+                      height: MediaQuery.of(context).size.height / 3,
+                      width: MediaQuery.of(context).size.height / 2,
                     ),
                   ),
-                  Text('data'),
-                  Text('data')
+                  Text(
+                    'أذكار المسلم',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text('AZKAR AL-MUSLIM',
+                      style: TextStyle(color: Colors.white, fontSize: 15))
                 ],
               ),
             ),

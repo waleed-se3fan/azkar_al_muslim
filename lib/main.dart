@@ -25,50 +25,29 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           var cubit = AppCubit.get(context);
           return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: AppCubit.isDarkMode
-                ? ThemeData(
-                    iconTheme: IconThemeData(color: Colors.teal[500]),
-                    brightness: Brightness.dark,
-                    appBarTheme: AppBarTheme(
-                      elevation: 0,
-                      centerTitle: true,
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Demo',
+              theme: AppCubit.isDarkMode
+                  ? ThemeData(
+                      iconTheme: IconThemeData(color: Colors.teal[500]),
+                      brightness: Brightness.dark,
+                      appBarTheme: AppBarTheme(
+                        elevation: 0,
+                        centerTitle: true,
+                      ),
+                    )
+                  : ThemeData(
+                      iconTheme: IconThemeData(color: Colors.teal[500]),
+                      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                          backgroundColor: Colors.yellow[50]),
+                      appBarTheme: AppBarTheme(
+                        backgroundColor: Colors.teal[500],
+                        elevation: 0,
+                        centerTitle: true,
+                      ),
+                      scaffoldBackgroundColor: Colors.teal[500],
                     ),
-                  )
-                : ThemeData(
-                    iconTheme: IconThemeData(color: Colors.teal[500]),
-                    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                        backgroundColor: Colors.yellow[50]),
-                    appBarTheme: AppBarTheme(
-                      backgroundColor: Colors.teal[500],
-                      elevation: 0,
-                      centerTitle: true,
-                    ),
-                    scaffoldBackgroundColor: Colors.teal[500],
-                  ),
-            home: Scaffold(
-              body: cubit.widgets[cubit.currentIndex],
-              bottomNavigationBar: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  selectedItemColor: Colors.teal[500],
-                  unselectedItemColor: Colors.teal[500],
-                  currentIndex: cubit.currentIndex,
-                  onTap: (i) {
-                    cubit.changeIndex(i);
-                  },
-                  items: [
-                    BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-                    BottomNavigationBarItem(icon: Icon(Icons.star), label: ''),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.search), label: ''),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.question_mark_rounded), label: ''),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.settings), label: ''),
-                  ]),
-            ),
-          );
+              home: SplashScreen());
         },
       ),
     );

@@ -39,7 +39,6 @@ class AppCubit extends Cubit<AppState> {
   List widgets = [
     HomeScreen(),
     StaredScreen(),
-    NightModeScreen(),
     AboutAppScreen(),
     SettingScreen()
   ];

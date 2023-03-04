@@ -9,14 +9,9 @@ import '../../core/component/azkar_item.dart';
 import '../cubit/app_cubit.dart';
 
 class SettingScreen extends StatelessWidget {
-  List setting = ['وضع ليلي', 'الاشعارات', 'حجم الخط', 'حول التطبيق'];
+  List setting = ['وضع ليلي', 'حجم الخط', 'حول التطبيق'];
 
-  List settingScreens = [
-    NightModeScreen(),
-    Container(),
-    FontSizeScreen(),
-    AboutAppScreen()
-  ];
+  List settingScreens = [NightModeScreen(), FontSizeScreen(), AboutAppScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

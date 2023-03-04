@@ -16,7 +16,7 @@ class SplashCubit extends Cubit<SplashState> {
   static SplashCubit get(context) => BlocProvider.of(context);
 
   void timer(context) {
-    Timer(Duration(seconds: 15), () {
+    Timer(Duration(seconds: 4), () {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return OnBoardingScreen();
       }));
