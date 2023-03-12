@@ -1,7 +1,6 @@
 import 'package:azkar_al_muslim/app/cubit/app_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FontSizeScreen extends StatelessWidget {
@@ -10,24 +9,23 @@ class FontSizeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = AppCubit.get(context);
         return BlocProvider(
           create: (context) => AppCubit(),
           child: Scaffold(
             appBar: AppBar(
-              title: Text('حجم الخط'),
+              title: const Text('حجم الخط'),
               leading: IconButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back_ios_new_rounded)),
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded)),
             ),
             body: Container(
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 100),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [

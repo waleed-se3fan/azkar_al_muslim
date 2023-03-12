@@ -1,15 +1,11 @@
-import 'package:azkar_al_muslim/app/Home_screen/bottomNB.dart';
 import 'package:azkar_al_muslim/app/cubit/app_cubit.dart';
 import 'package:azkar_al_muslim/app/plash_screen/plash_screen.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'app/Home_screen/home.dart';
-
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +18,6 @@ class MyApp extends StatelessWidget {
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var cubit = AppCubit.get(context);
           return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
@@ -30,6 +25,7 @@ class MyApp extends StatelessWidget {
                   ? ThemeData(
                       iconTheme: IconThemeData(color: Colors.teal[500]),
                       brightness: Brightness.dark,
+                      // ignore: prefer_const_constructors
                       appBarTheme: AppBarTheme(
                         elevation: 0,
                         centerTitle: true,
@@ -46,7 +42,7 @@ class MyApp extends StatelessWidget {
                       ),
                       scaffoldBackgroundColor: Colors.teal[500],
                     ),
-              home: SplashScreen());
+              home: const SplashScreen());
         },
       ),
     );

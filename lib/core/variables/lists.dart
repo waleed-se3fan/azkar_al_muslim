@@ -40,6 +40,7 @@ class Lists {
     'أسْتَغْفِرُ اللهَ وَأتُوبُ إلَيْهِ ',
   ];
 
+  // ignore: non_constant_identifier_names
   List asmaa_allah = [
     'الأحد',
     'الأول',
@@ -142,6 +143,7 @@ class Lists {
     'بديع'
   ];
 
+  // ignore: non_constant_identifier_names
   List asmaa_allah_means = [
     'المنفرد ليس معه غيره',
     ' لا شيء قبله ووجوده سبحانه ذاتي',

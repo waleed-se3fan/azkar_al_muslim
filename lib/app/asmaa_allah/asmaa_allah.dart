@@ -1,8 +1,5 @@
 import 'package:azkar_al_muslim/app/asmaa_allah/asmma_allah_details.dart';
-import 'package:azkar_al_muslim/core/component/azkar_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../core/variables/lists.dart';
 
@@ -17,7 +14,7 @@ class AsmmaAllah extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios_new_outlined)),
+            icon: const Icon(Icons.arrow_back_ios_new_outlined)),
         title: const Text('أسماء الله الحسني'),
       ),
       body: GridView.builder(

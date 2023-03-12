@@ -1,12 +1,11 @@
 import 'package:azkar_al_muslim/core/component/azkar_item.dart';
 import 'package:azkar_al_muslim/core/variables/lists.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
+// ignore: must_be_immutable
 class Azkar extends StatelessWidget {
   String text;
-  Azkar(this.text);
+  Azkar(this.text, {super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,14 +1,14 @@
 import 'package:azkar_al_muslim/app/cubit/app_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_share/flutter_share.dart';
 
+// ignore: must_be_immutable
 class AzkarItem extends StatelessWidget {
   String azkar = '';
 
-  AzkarItem(this.azkar);
+  AzkarItem(this.azkar, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class AzkarItem extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: AppCubit.font_size),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -42,12 +42,11 @@ class AzkarItem extends StatelessWidget {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
                                 border: Border.all(width: 1.5)),
-                            child: Container(
-                                child: IconButton(
-                                    onPressed: () {
-                                      cubit.addToStarList(azkar);
-                                    },
-                                    icon: Icon(Icons.star)))),
+                            child: IconButton(
+                                onPressed: () {
+                                  cubit.addToStarList(azkar);
+                                },
+                                icon: const Icon(Icons.star))),
                         Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
@@ -56,7 +55,7 @@ class AzkarItem extends StatelessWidget {
                                 onPressed: () {
                                   FlutterShare.share(text: azkar, title: azkar);
                                 },
-                                icon: Icon(Icons.share))),
+                                icon: const Icon(Icons.share))),
                       ],
                     )
                   ],

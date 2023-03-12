@@ -1,7 +1,6 @@
 import 'package:azkar_al_muslim/app/cubit/app_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AlbasbahaScreen extends StatelessWidget {
@@ -15,8 +14,8 @@ class AlbasbahaScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios_new_rounded)),
-        title: Text('المسبحة'),
+            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+        title: const Text('المسبحة'),
       ),
       body: BlocProvider(
         create: (context) => AppCubit(),
@@ -30,7 +29,7 @@ class AlbasbahaScreen extends StatelessWidget {
                 Center(
                   child: Text(
                     cubit.sebhaNum.toString(),
-                    style: TextStyle(fontSize: 35, color: Colors.white),
+                    style: const TextStyle(fontSize: 35, color: Colors.white),
                   ),
                 ),
                 Container(
@@ -42,7 +41,7 @@ class AlbasbahaScreen extends StatelessWidget {
                     child: Container(
                         height: 50,
                         width: 50,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             shape: BoxShape.circle, color: Colors.black)),
                   ),
                 ),

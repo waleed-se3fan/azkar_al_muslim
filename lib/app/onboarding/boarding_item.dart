@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../Home_screen/bottomNB.dart';
-import '../Home_screen/home.dart';
+import '../Home_screen/bottom_nav.dart';
 
+// ignore: must_be_immutable
 class BordingItem extends StatefulWidget {
   int index = 0;
-  BordingItem(this.index);
+  BordingItem(this.index, {super.key});
 
   @override
   State<BordingItem> createState() => _BordingItemState();
@@ -37,7 +35,7 @@ class _BordingItemState extends State<BordingItem> {
           ),
           Text(title[widget.index],
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.teal,
                   fontSize: 18,
                   fontWeight: FontWeight.bold)),
@@ -79,9 +77,10 @@ class _BordingItemState extends State<BordingItem> {
                         widget.index--;
                         setState(() {});
                       },
-                      label:
-                          Text('السابق', style: TextStyle(color: Colors.teal)),
-                      icon: Icon(CupertinoIcons.arrowtriangle_left_square)),
+                      label: const Text('السابق',
+                          style: TextStyle(color: Colors.teal)),
+                      icon:
+                          const Icon(CupertinoIcons.arrowtriangle_left_square)),
               widget.index == 2
                   ? ElevatedButton(
                       style: ButtonStyle(
@@ -90,10 +89,10 @@ class _BordingItemState extends State<BordingItem> {
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return BottomNavBar();
+                          return const BottomNavBar();
                         }));
                       },
-                      child: Text(
+                      child: const Text(
                         'ابدأالان',
                       ))
                   : Directionality(
@@ -106,8 +105,9 @@ class _BordingItemState extends State<BordingItem> {
                             widget.index++;
                             setState(() {});
                           },
-                          icon: Icon(CupertinoIcons.arrowtriangle_right_square),
-                          label: Text(
+                          icon: const Icon(
+                              CupertinoIcons.arrowtriangle_right_square),
+                          label: const Text(
                             'التالي',
                             style: TextStyle(color: Colors.teal),
                           )),
@@ -117,6 +117,5 @@ class _BordingItemState extends State<BordingItem> {
         ],
       ),
     );
-    ;
   }
 }

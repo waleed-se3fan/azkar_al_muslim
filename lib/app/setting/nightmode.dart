@@ -1,7 +1,6 @@
 import 'package:azkar_al_muslim/app/cubit/app_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NightModeScreen extends StatelessWidget {
@@ -10,24 +9,23 @@ class NightModeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = AppCubit.get(context);
         return BlocProvider(
           create: (context) => AppCubit(),
           child: Scaffold(
             appBar: AppBar(
-              title: Text('الوضع الليلي'),
+              title: const Text('الوضع الليلي'),
               leading: IconButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back_ios_new_rounded)),
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded)),
             ),
             body: Container(
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 100),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -36,14 +34,14 @@ class NightModeScreen extends StatelessWidget {
                       cubit.darkmode();
                     },
                     child: Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           color: Colors.yellow[50],
                           borderRadius: BorderRadius.circular(30)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.nights_stay),
+                          const Icon(Icons.nights_stay),
                           Text(
                             'الوضع الليلي',
                             style: TextStyle(color: Colors.teal[500]),
@@ -57,14 +55,14 @@ class NightModeScreen extends StatelessWidget {
                       cubit.lightmode();
                     },
                     child: Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           color: Colors.yellow[50],
                           borderRadius: BorderRadius.circular(30)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.light_mode_sharp),
+                          const Icon(Icons.light_mode_sharp),
                           Text('الوضع النهاري',
                               style: TextStyle(color: Colors.teal[500])),
                         ],
@@ -74,14 +72,14 @@ class NightModeScreen extends StatelessWidget {
                   InkWell(
                     onTap: () {},
                     child: Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           color: Colors.yellow[50],
                           borderRadius: BorderRadius.circular(30)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.auto_fix_high_rounded),
+                          const Icon(Icons.auto_fix_high_rounded),
                           Text('وضع الجهاز',
                               style: TextStyle(color: Colors.teal[500])),
                         ],

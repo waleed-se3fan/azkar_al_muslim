@@ -1,7 +1,6 @@
 import 'package:azkar_al_muslim/app/plash_screen/cubit/splash_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -29,14 +28,14 @@ class SplashScreen extends StatelessWidget {
                       width: MediaQuery.of(context).size.height / 2,
                     ),
                   ),
-                  Text(
+                  const Text(
                     'أذكار المسلم',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 26,
                         fontWeight: FontWeight.bold),
                   ),
-                  Text('AZKAR AL-MUSLIM',
+                  const Text('AZKAR AL-MUSLIM',
                       style: TextStyle(color: Colors.white, fontSize: 15))
                 ],
               ),
