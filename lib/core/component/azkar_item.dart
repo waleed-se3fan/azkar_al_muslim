@@ -21,7 +21,6 @@ class AzkarItem extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.all(15.0),
             child: Card(
-              color: Colors.yellow[50],
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: Column(

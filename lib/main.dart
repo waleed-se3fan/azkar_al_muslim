@@ -23,9 +23,7 @@ class MyApp extends StatelessWidget {
               title: 'Flutter Demo',
               theme: AppCubit.isDarkMode
                   ? ThemeData(
-                      textTheme: Theme.of(context)
-                          .textTheme
-                          .apply(bodyColor: Colors.teal[500]),
+                      cardColor: Colors.black,
 
                       iconTheme: IconThemeData(color: Colors.teal[500]),
                       brightness: Brightness.dark,
@@ -36,6 +34,7 @@ class MyApp extends StatelessWidget {
                       ),
                     )
                   : ThemeData(
+                      cardColor: Colors.yellow[50],
                       iconTheme: IconThemeData(color: Colors.teal[500]),
                       bottomNavigationBarTheme: BottomNavigationBarThemeData(
                           backgroundColor: Colors.yellow[50]),
