@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/quraan.dart';
 import '../../onboarding/onboarding_screen.dart';
 
 part 'splash_state.dart';

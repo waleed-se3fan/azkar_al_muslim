@@ -23,6 +23,10 @@ class MyApp extends StatelessWidget {
               title: 'Flutter Demo',
               theme: AppCubit.isDarkMode
                   ? ThemeData(
+                      textTheme: Theme.of(context)
+                          .textTheme
+                          .apply(bodyColor: Colors.teal[500]),
+
                       iconTheme: IconThemeData(color: Colors.teal[500]),
                       brightness: Brightness.dark,
                       // ignore: prefer_const_constructors

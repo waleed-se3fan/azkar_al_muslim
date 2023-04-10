@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../Home_screen/home.dart';
 import '../abou_app_screen/about_app.dart';
+import '../compass/compass_screen.dart';
 import '../setting/setting.dart';
 import '../stared_screen/star_screen.dart';
 
@@ -34,6 +35,7 @@ class AppCubit extends Cubit<AppState> {
   List widgets = [
     const HomeScreen(),
     const StaredScreen(),
+    Appp(),
     const AboutAppScreen(),
     const SettingScreen()
   ];

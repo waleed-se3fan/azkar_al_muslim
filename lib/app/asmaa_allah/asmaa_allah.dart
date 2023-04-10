@@ -30,16 +30,12 @@ class AsmmaAllah extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: Container(
+                child: Card(
                   // ignore: sort_child_properties_last
                   child: Center(
                       child: Text(
                     Lists().asmaa_allah[i],
-                    style: const TextStyle(color: Colors.amber),
                   )),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(color: Colors.amber)),
                 ),
               ),
             );

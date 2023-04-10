@@ -43,6 +43,9 @@ dependencies:
   flutter_qiblah: ^2.1.0
   adhan_dart: ^1.0.8
   http:
+  flutter_compass: ^0.7.0
+  permission_handler: ^10.2.0
+
 
 dev_dependencies:
   flutter_test:

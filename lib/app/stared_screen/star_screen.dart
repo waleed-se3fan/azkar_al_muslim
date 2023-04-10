@@ -11,11 +11,7 @@ class StaredScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+        automaticallyImplyLeading: false,
         title: const Text('المميزة'),
       ),
       body: BlocProvider(
@@ -23,18 +19,19 @@ class StaredScreen extends StatelessWidget {
         child: BlocConsumer<AppCubit, AppState>(
           listener: (context, state) {},
           builder: (context, state) {
-            return Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: AppCubit.staredList.length,
-                      itemBuilder: (c, i) {
-                        return AzkarItem(AppCubit.staredList[i]);
-                      }),
-                ),
-              ],
-            );
+            return AppCubit.staredList.length == 0
+                ? const Center(
+                    child: Text(
+                      'لا يوجد شئ في المميزة',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: AppCubit.staredList.length,
+                    itemBuilder: (c, i) {
+                      return AzkarItem(AppCubit.staredList[i]);
+                    });
           },
         ),
       ),

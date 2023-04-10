@@ -3,12 +3,14 @@ import '../../app/almasbaha/almasbaha.dart';
 import '../../app/asmaa_allah/asmaa_allah.dart';
 import '../../app/azkar_alsabah/azkar_alsabah.dart';
 import '../../app/azkar_screen/azkar.dart';
+import '../../app/quraan_screen/quraan.dart';
 import '../../app/roqya_screen/roqya.dart';
 import '../../app/setting/fontsize.dart';
 import '../../app/setting/nightmode.dart';
 
 // ignore: non_constant_identifier_names
 List HomeWidget = [
+  QuraanScreen(),
   RoqyaScreen(),
   const AsmmaAllah(),
   Azkar('أذكار المساء'),
@@ -20,8 +22,9 @@ List HomeWidget = [
 ];
 
 List images = [
-  'images/home/roqua.png',
   'images/home/azkar1.png',
+  'images/home/roqua.png',
+  'images/third.png',
   'images/home/moon.png',
   'images/home/akar.png',
   'images/home/bed.png',
@@ -30,6 +33,7 @@ List images = [
   'images/home/sebha.png'
 ];
 List titless = [
+  'القران الكريم',
   'الرقية الشرعية',
   'أسماء الله الحسني',
   'اذكار المساء',

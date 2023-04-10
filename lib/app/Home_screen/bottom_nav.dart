@@ -29,6 +29,8 @@ class BottomNavBar extends StatelessWidget {
                       icon: Icon(Icons.home), label: ''),
                   const BottomNavigationBarItem(
                       icon: Icon(Icons.star), label: ''),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.compass_calibration), label: ''),
                   const BottomNavigationBarItem(
                       icon: Icon(Icons.question_mark_rounded), label: ''),
                   const BottomNavigationBarItem(
