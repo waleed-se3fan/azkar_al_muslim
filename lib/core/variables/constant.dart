@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../app/abou_app_screen/about_app.dart';
 import '../../app/almasbaha/almasbaha.dart';
 import '../../app/asmaa_allah/asmaa_allah.dart';
@@ -50,3 +52,28 @@ List settingScreens = [
   const FontSizeScreen(),
   const AboutAppScreen()
 ];
+
+var dard = ThemeData(
+  cardColor: Colors.black,
+
+  iconTheme: IconThemeData(color: Colors.teal[500]),
+  brightness: Brightness.dark,
+  // ignore: prefer_const_constructors
+  appBarTheme: AppBarTheme(
+    elevation: 0,
+    centerTitle: true,
+  ),
+);
+
+var white = ThemeData(
+  cardColor: Colors.yellow[50],
+  iconTheme: IconThemeData(color: Colors.teal[500]),
+  bottomNavigationBarTheme:
+      BottomNavigationBarThemeData(backgroundColor: Colors.yellow[50]),
+  appBarTheme: AppBarTheme(
+    backgroundColor: Colors.teal[500],
+    elevation: 0,
+    centerTitle: true,
+  ),
+  scaffoldBackgroundColor: Colors.teal[500],
+);

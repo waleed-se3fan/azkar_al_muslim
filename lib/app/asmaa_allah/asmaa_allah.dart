@@ -29,7 +29,7 @@ class AsmmaAllah extends StatelessWidget {
                 }));
               },
               child: Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Card(
                   // ignore: sort_child_properties_last
                   child: Center(

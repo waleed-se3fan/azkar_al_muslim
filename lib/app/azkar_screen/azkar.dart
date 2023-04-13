@@ -11,6 +11,11 @@ class Azkar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_ios_new_outlined)),
         title: Text(text),
       ),
       body: ListView.builder(itemBuilder: (c, i) {
