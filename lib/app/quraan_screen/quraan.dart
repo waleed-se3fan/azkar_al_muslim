@@ -1,10 +1,11 @@
 import 'package:azkar_al_muslim/app/quraan_screen/surah_screen.dart';
-import 'package:azkar_al_muslim/core/variables/lists.dart';
 import 'package:azkar_al_muslim/data/quraan.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class QuraanScreen extends StatelessWidget {
+  const QuraanScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

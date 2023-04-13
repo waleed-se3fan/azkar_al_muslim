@@ -15,18 +15,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppCubit(),
-      child: BlocConsumer<AppCubit, AppState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
-              theme: AppCubit.isDarkMode ? dard : white,
-              home: const SplashScreen());
-        },
-      ),
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppCubit.isDarkMode ? dard : white,
+        home: const SplashScreen());
   }
 }

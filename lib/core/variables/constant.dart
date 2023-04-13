@@ -12,7 +12,7 @@ import '../../app/setting/nightmode.dart';
 
 // ignore: non_constant_identifier_names
 List HomeWidget = [
-  QuraanScreen(),
+  const QuraanScreen(),
   RoqyaScreen(),
   const AsmmaAllah(),
   Azkar('أذكار المساء'),
