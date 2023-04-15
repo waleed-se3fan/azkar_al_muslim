@@ -15,9 +15,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppCubit.isDarkMode ? dard : white,
-        home: const SplashScreen());
+    return BlocProvider(
+      create: (context) => AppCubit(),
+      child: BlocConsumer<AppCubit, AppState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: AppCubit.isDarkMode ? dard : white,
+              home: const SplashScreen());
+        },
+      ),
+    );
   }
 }

@@ -134,9 +134,14 @@ class _ApppState extends State<Appp> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Text('Location Permission Required'),
           ElevatedButton(
-            child: const Text('Request Permissions'),
+            style: ButtonStyle(
+                padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
+                backgroundColor: MaterialStateProperty.all(Colors.white)),
+            child: const Text(
+              'Request Permissions',
+              style: TextStyle(color: Colors.teal),
+            ),
             onPressed: () {
               Permission.locationWhenInUse.request().then((ignored) {
                 _fetchPermissionStatus();
@@ -145,7 +150,11 @@ class _ApppState extends State<Appp> {
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            child: const Text('Open App Settings'),
+            style: ButtonStyle(
+                padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
+                backgroundColor: MaterialStateProperty.all(Colors.white)),
+            child: const Text('Open App Settings',
+                style: TextStyle(color: Colors.teal)),
             onPressed: () {
               openAppSettings().then((opened) {
                 //

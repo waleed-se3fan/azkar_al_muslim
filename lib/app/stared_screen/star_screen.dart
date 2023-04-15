@@ -19,7 +19,7 @@ class StaredScreen extends StatelessWidget {
         child: BlocConsumer<AppCubit, AppState>(
           listener: (context, state) {},
           builder: (context, state) {
-            return AppCubit.staredList.length == 0
+            return AppCubit.staredList.isEmpty
                 ? const Center(
                     child: Text(
                       'لا يوجد شئ في المميزة',

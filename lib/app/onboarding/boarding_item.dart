@@ -24,6 +24,7 @@ class _BordingItemState extends State<BordingItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(15),
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
