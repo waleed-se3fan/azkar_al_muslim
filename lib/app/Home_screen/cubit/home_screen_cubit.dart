@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:azkar_al_muslim/app/Home_screen/home.dart';
 import 'package:azkar_al_muslim/data/models/audioauraan.dart';
 import 'package:azkar_al_muslim/data/models/models.dart';
@@ -29,7 +29,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     emit(SearchSuccess(surahs));
   }
 
-  List<AudioQuraanModel>? audioSurah;
+  List<AudioModel>? audioSurah;
   getQariAudio(qariId) async {
     emit(GetQariAudioLoading());
     try {
@@ -37,11 +37,38 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
       Uri uri = Uri.parse(url);
       Response response = await http.get(uri);
       var decoded = jsonDecode(response.body);
-      List data = decoded.data['audio_files'];
-      audioSurah = data.map((e) => AudioQuraanModel.fromJson(e)).toList();
-      emit(GetQariAudioSuccess(audioSurah!));
+
+      List data = decoded['audio_files'];
+      print(data);
+      audioSurah = data.map((e) => AudioModel.fromJson(e)).toList();
+
+      emit(GetQariAudioSuccess(audioSurah!, false));
     } catch (e) {
+      print(e.toString());
       emit(GetQariAudioFail());
     }
   }
+
+  var player = AudioPlayer();
+  bool isPlayed = false;
+  playAedio(String url) async {
+    emit(PlayerLoading());
+    if (isPlayed) {
+      await player.stop();
+    } else {
+      await player.play(UrlSource(url));
+    }
+    isPlayed = !isPlayed;
+    emit(GetQariAudioSuccess(audioSurah!, isPlayed)); // Emit بعد التغيير مباشرة
+  }
+
+  pauseAudio() async {
+    await player.stop();
+  }
+
+  //https://quranenc.com/api/v1/translation/sura/arabic_moyassar/114    tafseer
+  //https://hadis-api-id.vercel.app/hadith/abu-dawud?page=2&limit=300    ahadeeth
+  //https://raw.githubusercontent.com/nawafalqari/azkar-api/56df51279ab6eb86dc2f6202c7de26c8948331c1/azkar.json azkar
+  //https://www.hisnmuslim.com/api/ar/27.json azkar alsabah and almasa
+  //https://api.aladhan.com/v1/timingsByCity/15-04-2023?city=cairo&country=egypt&method=8 mwaquest alsalah
 }

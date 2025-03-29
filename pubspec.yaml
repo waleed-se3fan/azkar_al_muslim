@@ -43,7 +43,7 @@ dependencies:
   flutter_qiblah: ^2.1.0
   adhan_dart: ^1.0.8
   http:
-  flutter_compass: ^0.7.0
+  flutter_compass: 
   permission_handler: ^10.2.0
   flutter_svg: ^2.0.10+1
   audioplayers: 

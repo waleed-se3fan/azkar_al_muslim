@@ -25,6 +25,8 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    namespace "com.example.azkar_al_muslim"
+    namespace "com.example.flutter_compass"
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 

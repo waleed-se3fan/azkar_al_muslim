@@ -64,7 +64,8 @@ class QariScreen extends StatelessWidget {
                     index: index,
                     key: key,
                   );
-                }));
+                })).then(
+                    (value) => context.read<HomeScreenCubit>().pauseAudio());
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
@@ -123,6 +124,8 @@ class QariVoiceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = HomeScreenCubit.get(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -138,7 +141,7 @@ class QariVoiceScreen extends StatelessWidget {
         elevation: 2,
       ),
       body: BlocProvider(
-        create: (context) => HomeScreenCubit()..getQariAudio(index),
+        create: (context) => HomeScreenCubit()..getQariAudio(index + 1),
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -172,36 +175,42 @@ class QariVoiceScreen extends StatelessWidget {
               const SizedBox(height: 40),
               BlocBuilder<HomeScreenCubit, HomeScreenState>(
                 builder: (context, state) {
-                  return state is! GetQariAudioSuccess
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.teal,
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: () {},
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: Colors.greenAccent,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 5),
-                                ),
-                              ],
+                  if (state is GetQariAudioSuccess) {
+                    return GestureDetector(
+                      onTap: () async {
+                        context
+                            .read<HomeScreenCubit>()
+                            .playAedio(state.audioList[index].audioUrl);
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.greenAccent,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
                             ),
-                            child: const Icon(
-                              Icons.play_arrow,
-                              size: 50,
-                              color: Colors.white,
-                            ),
-                          ),
-                        );
+                          ],
+                        ),
+                        child: Icon(
+                          !state.isPlayed ? Icons.play_arrow : Icons.stop,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    );
+                  }
                 },
               ),
               const SizedBox(height: 20),

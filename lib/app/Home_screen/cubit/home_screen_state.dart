@@ -15,8 +15,12 @@ class SearchSuccess extends HomeScreenState {
 class GetQariAudioLoading extends HomeScreenState {}
 
 class GetQariAudioSuccess extends HomeScreenState {
-  final List<AudioQuraanModel> audioList;
-  GetQariAudioSuccess(this.audioList);
+  final List<AudioModel> audioList;
+  final bool isPlayed;
+
+  GetQariAudioSuccess(this.audioList, this.isPlayed);
 }
+
+class PlayerLoading extends HomeScreenState {}
 
 class GetQariAudioFail extends HomeScreenState {}
