@@ -1,6 +1,5 @@
 import 'package:azkar_al_muslim/app/cubit/app_cubit.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AlbasbahaScreen extends StatelessWidget {
@@ -10,12 +9,10 @@ class AlbasbahaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-        title: const Text('المسبحة'),
+        title: const Text(
+          'المسبحة',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: BlocProvider(
         create: (context) => AppCubit(),
@@ -23,45 +20,76 @@ class AlbasbahaScreen extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) {
             var cubit = AppCubit.get(context);
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Center(
-                  child: Text(
+
+            return Container(
+              width: double.infinity,
+              color: Colors.teal[50],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
                     cubit.sebhaNum.toString(),
-                    style: const TextStyle(fontSize: 35, color: Colors.white),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.bottomRight,
-                  child: InkWell(
-                    onTap: () {
-                      cubit.sebhaReset();
-                    },
-                    child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.black)),
-                  ),
-                ),
-                Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        cubit.sebhaInc();
-                      },
-                      child: Container(
-                          height: MediaQuery.of(context).size.height / 2,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.yellow[50])),
+                    style: const TextStyle(
+                      fontSize: 70,
+                      color: Colors.teal,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                )
-              ],
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // Tasbeeh button
+                  InkWell(
+                    onTap: () => cubit.sebhaInc(),
+                    borderRadius: BorderRadius.circular(100),
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.teal[300],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.teal.withOpacity(0.4),
+                            spreadRadius: 5,
+                            blurRadius: 15,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'تسبيح',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // Reset button
+                  ElevatedButton(
+                    onPressed: () => cubit.sebhaReset(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: const Text(
+                      'إعادة التعيين',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),

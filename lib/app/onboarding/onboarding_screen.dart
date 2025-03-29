@@ -11,7 +11,7 @@ class OnBoardingScreen extends StatelessWidget {
       body: PageView.builder(
           itemCount: 3,
           itemBuilder: (c, i) {
-            return BordingItem(i);
+            return BoardingItem();
           }),
     );
   }

@@ -24,3 +24,8 @@ class GetQariAudioSuccess extends HomeScreenState {
 class PlayerLoading extends HomeScreenState {}
 
 class GetQariAudioFail extends HomeScreenState {}
+
+class GetFavouriteDataState extends HomeScreenState {
+  List<String> data;
+  GetFavouriteDataState(this.data);
+}

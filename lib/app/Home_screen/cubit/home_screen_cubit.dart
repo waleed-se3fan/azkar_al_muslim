@@ -8,12 +8,32 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 part 'home_screen_state.dart';
 
 class HomeScreenCubit extends Cubit<HomeScreenState> {
   HomeScreenCubit() : super(HomeScreenInitial());
 
   static HomeScreenCubit get(context) => BlocProvider.of(context);
+
+  final List<String> qaris = [
+    'عبدالباسط عبدالصمد (مجود)',
+    'عبدالباسط عبدالصمد (مرتل)',
+    'عبدالرحمن السديس',
+    'ابو بكر الشاطري',
+    'هاني الرفاعي',
+    'الحصري',
+    'مشاري العفاسي',
+    'محمد صديق المنشاوي(مجود)',
+    'محمد صديق المنشاوي(مرتل)',
+    'سعد الشريم',
+    'عبدالمحسن القاسم',
+    'الحصري',
+    'سعد الغامدي',
+    'فارس عباد',
+    'عبد الباري الثبيتي'
+  ];
+
   List<Surahs>? data;
 
   List<Surahs>? getSurahs() {
@@ -64,6 +84,20 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
 
   pauseAudio() async {
     await player.stop();
+  }
+
+  List<String> favouriteData = [];
+  addToFavourite(String value) async {
+    var instance = await SharedPreferences.getInstance();
+    favouriteData.add(value);
+    await instance.setStringList('favorites', favouriteData);
+  }
+
+  getFavouriteData() async {
+    var instance = await SharedPreferences.getInstance();
+
+    favouriteData = instance.getStringList('favorites')!;
+    emit(GetFavouriteDataState(favouriteData));
   }
 
   //https://quranenc.com/api/v1/translation/sura/arabic_moyassar/114    tafseer

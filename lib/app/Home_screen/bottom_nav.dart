@@ -63,7 +63,7 @@ class BottomNavBar extends StatelessWidget {
                   ),
                   _buildNavBarItem(
                     icon: Icons.compass_calibration,
-                    label: 'استكشاف',
+                    label: 'البوصلة',
                     isActive: cubit.currentIndex == 2,
                   ),
                   _buildNavBarItem(

@@ -1,19 +1,10 @@
 import 'package:azkar_al_muslim/app/Home_screen/cubit/home_screen_cubit.dart';
+import 'package:azkar_al_muslim/app/Home_screen/home.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class QariScreen extends StatelessWidget {
-  final List<String> qaris = [
-    'عبدالباسط عبدالصمد (مجود)',
-    'عبدالباسط عبدالصمد (مرتل)',
-    'ماهر المعيقلي',
-    'مشاري العفاسي',
-    'سعد الغامدي',
-    'محمد صديق المنشاوي',
-    'ياسر الدوسري',
-  ];
-
   QariScreen({super.key});
 
   @override
@@ -33,78 +24,79 @@ class QariScreen extends StatelessWidget {
         elevation: 2,
         centerTitle: true,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.teal[600]!,
-              Colors.teal[400]!,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      body: BlocProvider(
+        create: (context) => HomeScreenCubit(),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.teal[600]!,
+                Colors.teal[400]!,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
-        ),
-        padding: const EdgeInsets.all(16),
-        child: GridView.builder(
-          itemCount: qaris.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 1,
-          ),
-          itemBuilder: (context, index) {
-            final qari = qaris[index];
-            return GestureDetector(
-              onTap: () {
-                //cubit.getQariNames(1);
-                Navigator.push(context, MaterialPageRoute(builder: (c) {
-                  return QariVoiceScreen(
-                    qariName: qari,
-                    index: index,
-                    key: key,
-                  );
-                })).then(
-                    (value) => context.read<HomeScreenCubit>().pauseAudio());
-              },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white,
-                      Colors.teal[50]!,
+          padding: const EdgeInsets.all(16),
+          child: GridView.builder(
+            itemCount: cubit.qaris.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+              childAspectRatio: 1,
+            ),
+            itemBuilder: (context, index) {
+              final qari = cubit.qaris[index];
+              return GestureDetector(
+                onTap: () {
+                  cubit.getQariAudio(index + 1);
+                  Navigator.push(context, MaterialPageRoute(builder: (c) {
+                    return SurahListScreen(
+                      isSounded: true,
+                      appbarText: cubit.qaris[index],
+                    );
+                  }));
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white,
+                        Colors.teal[50]!,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
                     ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.08),
-                      blurRadius: 12,
-                      offset: const Offset(0, 6),
+                  child: Center(
+                    child: Text(
+                      qari,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal[800],
+                        letterSpacing: 0.5,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    qari,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.teal[800],
-                      letterSpacing: 0.5,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
@@ -124,8 +116,6 @@ class QariVoiceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = HomeScreenCubit.get(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -140,19 +130,8 @@ class QariVoiceScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 2,
       ),
-      body: BlocProvider(
-        create: (context) => HomeScreenCubit()..getQariAudio(index + 1),
+      body: Center(
         child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.teal[600]!,
-                Colors.teal[400]!,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
