@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../app/abou_app_screen/about_app.dart';
 import '../../app/almasbaha/almasbaha.dart';
 import '../../app/asmaa_allah/asmaa_allah.dart';
-import '../../app/azkar_alsabah/azkar_alsabah.dart';
+import '../../app/asmaa_allah/azkar_alsabah/azkar_alsabah.dart';
 import '../../app/azkar_screen/azkar.dart';
 import '../../app/quraan_screen/quraan.dart';
 import '../../app/roqya_screen/roqya.dart';
@@ -24,15 +24,15 @@ List HomeWidget = [
 ];
 
 List images = [
-  'images/home/azkar1.png',
-  'images/home/roqua.png',
-  'images/third.png',
-  'images/home/moon.png',
-  'images/home/akar.png',
-  'images/home/bed.png',
-  'images/home/sun.png',
-  'images/home/azkar.png',
-  'images/home/sebha.png'
+  'assets/images/home/azkar1.png',
+  'assets/images/home/roqua.png',
+  'assets/images/third.png',
+  'assets/images/home/moon.png',
+  'assets/images/home/akar.png',
+  'assets/images/home/bed.png',
+  'assets/images/home/sun.png',
+  'assets/images/home/azkar.png',
+  'assets/images/home/sebha.png'
 ];
 List titless = [
   'القران الكريم',
@@ -71,9 +71,33 @@ var white = ThemeData(
   bottomNavigationBarTheme:
       BottomNavigationBarThemeData(backgroundColor: Colors.yellow[50]),
   appBarTheme: AppBarTheme(
-    backgroundColor: Colors.teal[500],
+    backgroundColor: Colors.transparent,
     elevation: 0,
     centerTitle: true,
+    titleTextStyle: TextStyle(
+      color: Colors.white,
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      letterSpacing: 1.3,
+      shadows: [
+        Shadow(
+          color: Colors.black.withOpacity(0.3),
+          blurRadius: 4,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    ),
+    iconTheme: const IconThemeData(
+      color: Colors.white,
+      size: 28, // Bigger icon size
+    ),
+    toolbarHeight: 70, // Increased height for better visibility
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+      ),
+    ),
   ),
   scaffoldBackgroundColor: Colors.teal[500],
 );

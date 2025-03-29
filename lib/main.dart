@@ -1,3 +1,4 @@
+import 'package:azkar_al_muslim/app/Home_screen/cubit/home_screen_cubit.dart';
 import 'package:azkar_al_muslim/app/cubit/app_cubit.dart';
 import 'package:azkar_al_muslim/app/plash_screen/plash_screen.dart';
 
@@ -15,8 +16,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeScreenCubit()..getSurahs(),
+        ),
+        BlocProvider(
+          create: (context) => AppCubit(),
+        )
+      ],
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
         builder: (context, state) {

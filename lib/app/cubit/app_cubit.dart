@@ -35,7 +35,7 @@ class AppCubit extends Cubit<AppState> {
   List widgets = [
     const HomeScreen(),
     const StaredScreen(),
-    const Appp(),
+    const QiblaCompass(),
     const AboutAppScreen(),
     const SettingScreen()
   ];

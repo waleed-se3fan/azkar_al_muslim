@@ -2,6 +2,7 @@ import 'package:azkar_al_muslim/app/plash_screen/cubit/splash_cubit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -22,7 +23,7 @@ class SplashScreen extends StatelessWidget {
                 children: [
                   Center(
                     child: Image.asset(
-                      'images/splash.png',
+                      'assets/images/splash.png',
                       color: Colors.white,
                       height: MediaQuery.of(context).size.height / 3,
                       width: MediaQuery.of(context).size.height / 2,
@@ -36,7 +37,7 @@ class SplashScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                   const Text('AZKAR AL-MUSLIM',
-                      style: TextStyle(color: Colors.white, fontSize: 15))
+                      style: TextStyle(color: Colors.white, fontSize: 15)),
                 ],
               ),
             ),

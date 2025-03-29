@@ -1,176 +1,215 @@
-import 'dart:math' as math;
-
+import 'dart:async';
+import 'dart:math' show pi;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_compass/flutter_compass.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_qiblah/flutter_qiblah.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 
-class Appp extends StatefulWidget {
-  const Appp({
-    Key? key,
-  }) : super(key: key);
+class QiblaCompass extends StatefulWidget {
+  const QiblaCompass({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _ApppState createState() => _ApppState();
+  State<QiblaCompass> createState() => _QiblaCompassState();
 }
 
-class _ApppState extends State<Appp> {
-  bool _hasPermissions = false;
+class _QiblaCompassState extends State<QiblaCompass> {
+  final _locationStreamController =
+      StreamController<LocationStatus>.broadcast();
 
   @override
   void initState() {
     super.initState();
-
-    _fetchPermissionStatus();
+    _checkLocationStatus();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[500],
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(' القبلة'),
+        title: const Text('القبلة'),
       ),
-      body: Builder(builder: (context) {
-        if (_hasPermissions) {
-          return Column(
-            children: <Widget>[
-              Expanded(child: _buildCompass()),
-            ],
-          );
-        } else {
-          return _buildPermissionSheet();
-        }
-      }),
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(8.0),
+        child: StreamBuilder<LocationStatus>(
+          stream: _locationStreamController.stream,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CupertinoActivityIndicator();
+            }
+
+            final locationStatus = snapshot.data;
+
+            if (locationStatus == null) {
+              return _buildErrorWidget("Failed to get location status");
+            }
+
+            if (!locationStatus.enabled) {
+              return LocationErrorWidget(
+                error: "Please enable Location service",
+                callback: _checkLocationStatus,
+              );
+            }
+
+            switch (locationStatus.status) {
+              case LocationPermission.always:
+              case LocationPermission.whileInUse:
+                return const QiblahCompassWidget();
+
+              case LocationPermission.denied:
+                return LocationErrorWidget(
+                  error: "Location permission denied",
+                  callback: _checkLocationStatus,
+                );
+
+              case LocationPermission.deniedForever:
+                return LocationErrorWidget(
+                  error: "Location permission denied forever",
+                  callback: _checkLocationStatus,
+                );
+
+              default:
+                return _buildErrorWidget("Unknown Location status");
+            }
+          },
+        ),
+      ),
     );
   }
 
-/*
-  Widget _buildManualReader() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        children: <Widget>[
-          ElevatedButton(
-            child: Text('Read Value'),
-            onPressed: () async {
-              final CompassEvent tmp = await FlutterCompass.events!.first;
-              setState(() {
-                _lastRead = tmp;
-                _lastReadAt = DateTime.now();
-              });
-            },
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '$_lastRead',
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                  Text(
-                    '$_lastReadAt',
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                ],
+  Widget _buildErrorWidget(String message) {
+    return Center(
+      child: Text(
+        message,
+        style: const TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Future<void> _checkLocationStatus() async {
+    final locationStatus = await FlutterQiblah.checkLocationStatus();
+
+    if (!locationStatus.enabled) {
+      await Geolocator.openLocationSettings();
+
+      final updatedStatus = await FlutterQiblah.checkLocationStatus();
+
+      if (mounted) {
+        _locationStreamController.sink.add(updatedStatus);
+      }
+    } else if (locationStatus.status == LocationPermission.denied) {
+      final permission = await FlutterQiblah.requestPermissions();
+
+      final updatedStatus = await FlutterQiblah.checkLocationStatus();
+
+      if (mounted) {
+        _locationStreamController.sink.add(updatedStatus);
+      }
+    } else {
+      // لو كل حاجة تمام هنحدث الـ Stream
+      if (mounted) {
+        _locationStreamController.sink.add(locationStatus);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _locationStreamController.close();
+    FlutterQiblah().dispose();
+    super.dispose();
+  }
+}
+
+class QiblahCompassWidget extends StatelessWidget {
+  const QiblahCompassWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QiblahDirection>(
+      stream: FlutterQiblah.qiblahStream,
+      builder: (_, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CupertinoActivityIndicator();
+        }
+
+        if (!snapshot.hasData) {
+          return const Center(child: Text("Failed to get Qibla direction"));
+        }
+
+        final qiblahDirection = snapshot.data!;
+        var angle = (qiblahDirection.qiblah) * (pi / 180) * -1;
+
+        return Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Transform.rotate(
+              angle: angle,
+              child: SvgPicture.asset(
+                'assets/images/svgimages/5.svg',
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-*/
-  Widget _buildCompass() {
-    return StreamBuilder<CompassEvent>(
-      stream: FlutterCompass.events,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error reading heading: ${snapshot.error}');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        double? direction = snapshot.data!.heading;
-
-        // if direction is null, then device does not support this sensor
-        // show error message
-        if (direction == null) {
-          return const Center(
-            child: Text("Device does not have sensors !"),
-          );
-        }
-
-        return Material(
-          shape: const CircleBorder(),
-          clipBehavior: Clip.antiAlias,
-          elevation: 4.0,
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
+            SvgPicture.asset(
+              'assets/images/svgimages/4.svg',
+              width: 300,
+              height: 300,
             ),
-            child: Transform.rotate(
-              angle: (direction * (math.pi / 180) * -1),
-              child: Image.asset('images/compass.jpg'),
+            SvgPicture.asset(
+              'assets/images/svgimages/3.svg',
             ),
-          ),
+          ],
         );
       },
     );
   }
+}
 
-  Widget _buildPermissionSheet() {
+class LocationErrorWidget extends StatelessWidget {
+  final String error;
+  final VoidCallback callback;
+
+  const LocationErrorWidget({
+    Key? key,
+    required this.error,
+    required this.callback,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final errorColor = Colors.white;
+
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          ElevatedButton(
-            style: ButtonStyle(
-                padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-                backgroundColor: MaterialStateProperty.all(Colors.white)),
-            child: const Text(
-              'Request Permissions',
-              style: TextStyle(color: Colors.teal),
+          Icon(
+            Icons.location_off,
+            size: 150,
+            color: errorColor,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            error,
+            style: TextStyle(
+              color: errorColor,
+              fontWeight: FontWeight.bold,
             ),
-            onPressed: () {
-              Permission.locationWhenInUse.request().then((ignored) {
-                _fetchPermissionStatus();
-              });
-            },
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            style: ButtonStyle(
-                padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-                backgroundColor: MaterialStateProperty.all(Colors.white)),
-            child: const Text('Open App Settings',
-                style: TextStyle(color: Colors.teal)),
-            onPressed: () {
-              openAppSettings().then((opened) {
-                //
-              });
-            },
-          )
+            style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.white)),
+            onPressed: callback,
+            child: Text(
+              "Retry",
+              style: TextStyle(color: Colors.teal[500]),
+            ),
+          ),
         ],
       ),
     );
-  }
-
-  void _fetchPermissionStatus() {
-    Permission.locationWhenInUse.status.then((status) {
-      if (mounted) {
-        setState(() => _hasPermissions = status == PermissionStatus.granted);
-      }
-    });
   }
 }

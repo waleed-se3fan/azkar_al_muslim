@@ -13,7 +13,11 @@ class BordingItem extends StatefulWidget {
 }
 
 class _BordingItemState extends State<BordingItem> {
-  List images = ['images/first.png', 'images/second.png', 'images/third.png'];
+  List images = [
+    'assets/images/first.png',
+    'assets/images/second.png',
+    'assets/images/third.png'
+  ];
 
   List title = [
     'مرحبا بك في تطبيق \nاذكار المسلم',
