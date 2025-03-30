@@ -19,10 +19,6 @@ interpretations, daily supplications (Azkar), a Tasbeeh counter, and a Qibla dir
 - **CUBIT** – State management
 - **flutter_qiblah** - Show the instant Qiblash to user
   
-
-## 📷 Screenshot  
-![Azkar Al-Muslim Screenshot]([https://drive.google.com/uc?id=1WjG6_-l5KYEIP21kJ9O-BMQqkaKB5pUS](https://drive.google.com/file/d/1WjG6_-l5KYEIP21kJ9O-BMQqkaKB5pUS/view?usp=drive_link))
-
 ## 🎬 Demo  
-[Watch the demo](https://drive.google.com/file/d/1W_IzLU0UmNE0OAMIonbdN3RLT1CWL6ya/view?usp=drive_link)
+[📹 Watch the demo](https://drive.google.com/file/d/1W_IzLU0UmNE0OAMIonbdN3RLT1CWL6ya/view?usp=drive_link)
 
