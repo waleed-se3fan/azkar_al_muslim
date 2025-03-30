@@ -11,7 +11,7 @@ class FontSizeScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = AppCubit.get(context);
+        var cubit = context.watch<AppCubit>();
         return BlocProvider(
           create: (context) => AppCubit(),
           child: Scaffold(
@@ -39,7 +39,7 @@ class FontSizeScreen extends StatelessWidget {
                         inactiveColor: Colors.yellow[50],
                         min: 0,
                         max: 100,
-                        value: AppCubit.font_size,
+                        value: cubit.font_size,
                         onChanged: (val) {
                           cubit.changeFontSize(val);
                         }),
@@ -49,7 +49,7 @@ class FontSizeScreen extends StatelessWidget {
                     flex: 2,
                     child: Text('أسْتَغْفِرُ اللهَ وَأتُوبُ إلَيْهِ',
                         style: TextStyle(
-                            fontSize: AppCubit.font_size,
+                            fontSize: cubit.font_size,
                             color: Colors.yellow[50])),
                   ),
                 ],

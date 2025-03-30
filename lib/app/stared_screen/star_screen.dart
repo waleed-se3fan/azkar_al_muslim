@@ -14,6 +14,7 @@ class StaredScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('المميزة'),
+        automaticallyImplyLeading: false,
       ),
       body: BlocBuilder<HomeScreenCubit, HomeScreenState>(
         builder: (context, state) {

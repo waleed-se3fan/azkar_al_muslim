@@ -6,6 +6,7 @@ import 'package:azkar_al_muslim/app/Home_screen/soundview/readers.dart';
 import 'package:azkar_al_muslim/app/Home_screen/tafseer/view.dart';
 import 'package:azkar_al_muslim/app/almasbaha/almasbaha.dart';
 import 'package:azkar_al_muslim/app/asmaa_allah/azkar_alsabah/azkar_alsabah.dart';
+import 'package:azkar_al_muslim/app/cubit/app_cubit.dart';
 import 'package:azkar_al_muslim/data/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -152,6 +153,8 @@ class QuraanScreen extends StatelessWidget {
     required VoidCallback onTap,
     required BuildContext context,
   }) {
+    var appCubit = context.watch<AppCubit>();
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -175,10 +178,10 @@ class QuraanScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
-                fontSize: 14,
+                fontSize: appCubit.font_size,
               ),
               textAlign: TextAlign.center,
             ),
@@ -203,6 +206,7 @@ class HomeCard extends StatelessWidget {
     String hijriDay = hijriDate.hDay.toString();
     String hijriMonth = hijriDate.longMonthName;
     String hijriYear = hijriDate.hYear.toString();
+    var appCubit = context.watch<AppCubit>();
 
     List<String> arabicDays = [
       "الأحد",
@@ -242,8 +246,8 @@ class HomeCard extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(
                   gregorianDate,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style: TextStyle(
+                    fontSize: appCubit.font_size,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
@@ -272,8 +276,8 @@ class HomeCard extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(
                   arabicDay,
-                  style: const TextStyle(
-                    fontSize: 18,
+                  style: TextStyle(
+                    fontSize: appCubit.font_size,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -379,7 +383,7 @@ class SuhrasView extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).brightness == Brightness.light
                 ? Colors.teal.shade700
-                : null, // Card color
+                : null,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
@@ -460,12 +464,13 @@ class SurahAyatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = HomeScreenCubit.get(context);
+    var appCubit = context.watch<AppCubit>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
           surahName,
-          style: const TextStyle(
-            fontSize: 24,
+          style: TextStyle(
+            fontSize: appCubit.font_size,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
@@ -499,7 +504,7 @@ class SurahAyatScreen extends StatelessWidget {
                     return Wrap(
                       children: [
                         ListTile(
-                          leading: const Icon(Icons.copy),
+                          leading: const Icon(Icons.copy, color: Colors.black),
                           title: const Text('نسخ'),
                           onTap: () {
                             Clipboard.setData(
@@ -511,9 +516,9 @@ class SurahAyatScreen extends StatelessWidget {
                                 content: Text(
                                   'تم نسخ (${ayat[index].text})',
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.white, // لون النص
-                                    fontSize: 16,
+                                    fontSize: appCubit.font_size,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -534,7 +539,8 @@ class SurahAyatScreen extends StatelessWidget {
                           },
                         ),
                         ListTile(
-                          leading: const Icon(Icons.favorite_border),
+                          leading: const Icon(Icons.favorite_border,
+                              color: Colors.black),
                           title: const Text('أضف الي المفضلة'),
                           onTap: () async {
                             await cubit.addToFavourite(ayat[index].text);
@@ -567,7 +573,10 @@ class SurahAyatScreen extends StatelessWidget {
                           },
                         ),
                         ListTile(
-                            leading: const Icon(Icons.share_outlined),
+                            leading: const Icon(
+                              Icons.share_outlined,
+                              color: Colors.black,
+                            ),
                             title: const Text('مشاركة'),
                             onTap: () async {
                               Navigator.pop(context);
@@ -602,8 +611,8 @@ class SurahAyatScreen extends StatelessWidget {
                           ),
                           child: Text(
                             '${index + 1}',
-                            style: const TextStyle(
-                              fontSize: 16,
+                            style: TextStyle(
+                              fontSize: appCubit.font_size,
                               fontWeight: FontWeight.bold,
                               color: Colors.teal,
                             ),
@@ -616,7 +625,7 @@ class SurahAyatScreen extends StatelessWidget {
                           ayat[index].text,
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: appCubit.font_size,
                             fontWeight: FontWeight.w500,
                             color: Colors.white,
                             //height: 1.6,

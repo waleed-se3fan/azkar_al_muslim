@@ -69,20 +69,23 @@ class _HadithScreenState extends State<HadithScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'حديث رقم ${index + 1}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.teal,
+                            Center(
+                              child: Text(
+                                'حديث رقم ${index + 1}',
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 8),
                             Text(
                               hadith['arab'],
+                              textAlign: TextAlign.end,
                               style: const TextStyle(
-                                fontSize: 16,
-                              ),
+                                  fontSize: 16, color: Colors.white),
                             ),
                           ],
                         ),

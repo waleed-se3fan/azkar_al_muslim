@@ -64,7 +64,7 @@ class AppCubit extends Cubit<AppState> {
   }
 
   // ignore: non_constant_identifier_names
-  static double font_size = 16;
+  double font_size = 16;
   void changeFontSize(f) {
     font_size = f;
     emit(ChangeFontSize());
