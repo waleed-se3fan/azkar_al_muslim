@@ -1,8 +1,11 @@
 import 'package:azkar_al_muslim/app/Home_screen/ahadeeth/view.dart';
 import 'package:azkar_al_muslim/app/Home_screen/cubit/home_screen_cubit.dart';
 import 'package:azkar_al_muslim/app/Home_screen/maeaqeet_alsalah/view.dart';
+import 'package:azkar_al_muslim/app/Home_screen/prophetsstories/view.dart';
 import 'package:azkar_al_muslim/app/Home_screen/soundview/readers.dart';
+import 'package:azkar_al_muslim/app/Home_screen/tafseer/view.dart';
 import 'package:azkar_al_muslim/app/almasbaha/almasbaha.dart';
+import 'package:azkar_al_muslim/app/asmaa_allah/azkar_alsabah/azkar_alsabah.dart';
 import 'package:azkar_al_muslim/data/models/models.dart';
 import 'package:azkar_al_muslim/data/quraan.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +62,16 @@ class QuraanScreen extends StatelessWidget {
               },
             ),
             _buildOption(
+              title: 'القرآن الكريم\n(بالتفسير)',
+              icon: Icons.menu_book_rounded,
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (c) {
+                  return const TafseerListScreen(
+                      isSounded: false, appbarText: 'القران الكريم بالتفسير');
+                }));
+              },
+            ),
+            _buildOption(
               title: 'القرآن صوت',
               icon: Icons.volume_up_rounded,
               onTap: () {
@@ -77,17 +90,12 @@ class QuraanScreen extends StatelessWidget {
               },
             ),
             _buildOption(
-              title: 'تفسير القرآن',
-              icon: Icons.explore_rounded,
-              onTap: () {
-                // TODO: Navigate to Tafseer screen
-              },
-            ),
-            _buildOption(
               title: 'أذكار الصباح والمساء',
               icon: Icons.wb_sunny_rounded,
               onTap: () {
-                // TODO: Navigate to Morning and Evening Azkar screen
+                Navigator.push(context, MaterialPageRoute(builder: (c) {
+                  return AzkarAlsabahScreen();
+                }));
               },
             ),
             _buildOption(
@@ -103,21 +111,9 @@ class QuraanScreen extends StatelessWidget {
               title: 'قصص الأنبياء',
               icon: Icons.book_rounded,
               onTap: () {
-                // TODO: Navigate to Prophets Stories screen
-              },
-            ),
-            _buildOption(
-              title: 'دعاء ختم القرآن',
-              icon: Icons.auto_awesome_rounded,
-              onTap: () {
-                // TODO: Navigate to Quran Completion Dua screen
-              },
-            ),
-            _buildOption(
-              title: 'فضل السور',
-              icon: Icons.star_rounded,
-              onTap: () {
-                // TODO: Navigate to Surah Virtues screen
+                Navigator.push(context, MaterialPageRoute(builder: (c) {
+                  return ProphetsStoriesScreen();
+                }));
               },
             ),
             _buildOption(
@@ -220,6 +216,7 @@ class SurahListScreen extends StatelessWidget {
                       child: SuhrasView(
                       surahs: state.surahs,
                       isSounded: isSounded,
+                      isTafseer: false,
                     ))
                   : state is SearchLoading
                       ? const Center(
@@ -229,6 +226,7 @@ class SurahListScreen extends StatelessWidget {
                           child: SuhrasView(
                             surahs: cubit.data ?? [],
                             isSounded: isSounded,
+                            isTafseer: false,
                           ),
                         );
             },
@@ -238,11 +236,17 @@ class SurahListScreen extends StatelessWidget {
     );
   }
 }
+////////////////////////////////////////////////////
 
 class SuhrasView extends StatelessWidget {
   final List<Surahs> surahs;
   final bool isSounded;
-  const SuhrasView({super.key, required this.surahs, required this.isSounded});
+  final bool isTafseer;
+  const SuhrasView(
+      {super.key,
+      required this.surahs,
+      required this.isSounded,
+      required this.isTafseer});
 
   @override
   Widget build(BuildContext context) {
@@ -293,15 +297,25 @@ class SuhrasView extends StatelessWidget {
                             QariVoiceScreen(qariName: surah.name, index: index),
                       ),
                     )
-                  : Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SurahAyatScreen(
-                          surahName: surahs[index].name,
-                          ayat: surahs[index].verses,
-                        ),
-                      ),
-                    );
+                  : isTafseer
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TafserAyatScreen(
+                              index: index,
+                              surahName: surahs[index].name,
+                            ),
+                          ),
+                        )
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SurahAyatScreen(
+                              surahName: surahs[index].name,
+                              ayat: surahs[index].verses,
+                            ),
+                          ),
+                        );
             },
           ),
         );
@@ -314,7 +328,7 @@ class SuhrasView extends StatelessWidget {
 
 class SurahAyatScreen extends StatelessWidget {
   final String surahName;
-  final List<Ayat> ayat;
+  final List<AyatModel> ayat;
 
   const SurahAyatScreen({
     super.key,
@@ -443,57 +457,52 @@ class SurahAyatScreen extends StatelessWidget {
                   },
                 );
               },
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
+              child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.teal.withOpacity(0.15),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Center(
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.teal[400]!,
-                            width: 2,
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Center(
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.teal[400]!,
+                              width: 2,
+                            ),
+                            color: Colors.teal[50],
                           ),
-                          color: Colors.teal[50],
+                          child: Text(
+                            '${index + 1}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal,
+                            ),
+                          ),
                         ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
                         child: Text(
-                          '${index + 1}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.teal,
+                          ayat[index].text,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.teal[900],
+                            //height: 1.6,
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        ayat[index].text,
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.teal[900],
-                          //height: 1.6,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );

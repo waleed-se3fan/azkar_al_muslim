@@ -29,3 +29,12 @@ class GetFavouriteDataState extends HomeScreenState {
   List<String> data;
   GetFavouriteDataState(this.data);
 }
+
+class GetQuranWithTafseerLoading extends HomeScreenState {}
+
+class GetQuranWithTafseerSuccess extends HomeScreenState {
+  final List<TafseerModel> tafseerList;
+  GetQuranWithTafseerSuccess(this.tafseerList);
+}
+
+class GetQuranWithTafseerFail extends HomeScreenState {}

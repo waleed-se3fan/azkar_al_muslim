@@ -3,6 +3,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:azkar_al_muslim/app/Home_screen/home.dart';
 import 'package:azkar_al_muslim/data/models/audioauraan.dart';
 import 'package:azkar_al_muslim/data/models/models.dart';
+import 'package:azkar_al_muslim/data/models/tafseer.dart';
 import 'package:azkar_al_muslim/data/quraan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,6 +70,24 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     }
   }
 
+  getQuraanwithTafseer(String surah) async {
+    emit(GetQuranWithTafseerLoading());
+    try {
+      String url =
+          'https://quranenc.com/api/v1/translation/sura/arabic_moyassar/$surah';
+      Uri uri = Uri.parse(url);
+      Response response = await http.get(uri);
+      var decoded = jsonDecode(response.body);
+      List data = decoded['result'];
+      List<TafseerModel> tafseerData =
+          data.map((e) => TafseerModel.fromJson(e)).toList();
+
+      emit(GetQuranWithTafseerSuccess(tafseerData));
+    } catch (e) {
+      emit(GetQuranWithTafseerFail());
+    }
+  }
+
   var player = AudioPlayer();
   bool isPlayed = false;
   playAedio(String url) async {
@@ -79,7 +98,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
       await player.play(UrlSource(url));
     }
     isPlayed = !isPlayed;
-    emit(GetQariAudioSuccess(audioSurah!, isPlayed)); // Emit بعد التغيير مباشرة
+    emit(GetQariAudioSuccess(audioSurah!, isPlayed));
   }
 
   pauseAudio() async {

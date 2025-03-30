@@ -34,17 +34,6 @@ List images = [
   'assets/images/home/azkar.png',
   'assets/images/home/sebha.png'
 ];
-List titless = [
-  'القران الكريم',
-  'الرقية الشرعية',
-  'أسماء الله الحسني',
-  'اذكار المساء',
-  'اذكار الصلاة',
-  'اذكار النوم',
-  'اذكار الصباح',
-  'تسابيح',
-  'المسبحة'
-];
 
 List setting = ['وضع ليلي', 'حجم الخط', 'حول التطبيق'];
 List settingScreens = [
