@@ -126,7 +126,6 @@ class QariVoiceScreen extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.teal[600],
         centerTitle: true,
         elevation: 2,
       ),

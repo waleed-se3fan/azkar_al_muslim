@@ -43,19 +43,34 @@ List settingScreens = [
 ];
 
 var dard = ThemeData(
-  cardColor: Colors.black,
-
+  cardTheme: CardTheme(
+    elevation: 4,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+    color: Colors.black,
+  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: Colors.black,
+    selectedItemColor: Colors.teal[500],
+    unselectedItemColor: Colors.white,
+  ),
   iconTheme: IconThemeData(color: Colors.teal[500]),
   brightness: Brightness.dark,
+
   // ignore: prefer_const_constructors
-  appBarTheme: AppBarTheme(
-    elevation: 0,
-    centerTitle: true,
-  ),
+  appBarTheme:
+      AppBarTheme(elevation: 0, centerTitle: true, color: Colors.black),
 );
 
 var white = ThemeData(
-  cardColor: Colors.yellow[50],
+  cardTheme: CardTheme(
+    elevation: 4,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+    color: Colors.teal[700],
+  ),
   iconTheme: IconThemeData(color: Colors.teal[500]),
   bottomNavigationBarTheme:
       BottomNavigationBarThemeData(backgroundColor: Colors.yellow[50]),

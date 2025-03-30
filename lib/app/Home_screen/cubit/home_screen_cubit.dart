@@ -119,9 +119,12 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     emit(GetFavouriteDataState(favouriteData));
   }
 
-  //https://quranenc.com/api/v1/translation/sura/arabic_moyassar/114    tafseer
-  //https://hadis-api-id.vercel.app/hadith/abu-dawud?page=2&limit=300    ahadeeth
-  //https://raw.githubusercontent.com/nawafalqari/azkar-api/56df51279ab6eb86dc2f6202c7de26c8948331c1/azkar.json azkar
-  //https://www.hisnmuslim.com/api/ar/27.json azkar alsabah and almasa
-  //https://api.aladhan.com/v1/timingsByCity/15-04-2023?city=cairo&country=egypt&method=8 mwaquest alsalah
+  removeFromFavourite(int index) async {
+    var instance = await SharedPreferences.getInstance();
+
+    List<String> favourite = instance.getStringList('favorites')!;
+    favourite.removeAt(index);
+    instance.setStringList('favorites', favourite);
+    emit(GetFavouriteDataState(favourite));
+  }
 }

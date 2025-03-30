@@ -16,14 +16,6 @@ class BottomNavBar extends StatelessWidget {
             body: cubit.widgets[cubit.currentIndex],
             bottomNavigationBar: Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.teal.shade700,
-                    Colors.teal.shade400,
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),

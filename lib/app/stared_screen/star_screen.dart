@@ -13,36 +13,146 @@ class StaredScreen extends StatelessWidget {
     var cubit = HomeScreenCubit.get(context);
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text('المميزة'),
       ),
-      body: BlocProvider(
-        create: (context) => HomeScreenCubit()..getFavouriteData(),
-        child: BlocBuilder<HomeScreenCubit, HomeScreenState>(
-          builder: (context, state) {
-            if (state is GetFavouriteDataState) {
-              if (state.data.isEmpty) {
-                return const Center(
-                  child: Text(
-                    'لا يوجد شئ في المميزة',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                );
-              } else {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.data.length,
-                    itemBuilder: (c, i) {
-                      return AzkarItem(state.data[i]);
-                    });
-              }
+      body: BlocBuilder<HomeScreenCubit, HomeScreenState>(
+        builder: (context, state) {
+          context.read<HomeScreenCubit>().getFavouriteData();
+          print(state.toString());
+          print(state);
+          if (state is GetFavouriteDataState) {
+            if (state.data.isNotEmpty) {
+              return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: state.data.length,
+                  itemBuilder: (c, i) {
+                    return InkWell(
+                        onLongPress: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return Wrap(
+                                children: [
+                                  ListTile(
+                                    leading: const Icon(Icons.delete),
+                                    title: const Text('حذف من المميزة'),
+                                    onTap: () {
+                                      context
+                                          .read<HomeScreenCubit>()
+                                          .removeFromFavourite(i);
+                                      Navigator.pop(context);
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: const Text(
+                                            'تم الحذف',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white, // لون النص
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          backgroundColor: Colors.teal,
+                                          behavior: SnackBarBehavior.floating,
+                                          margin: const EdgeInsets.all(16),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          duration: const Duration(seconds: 2),
+                                          action: SnackBarAction(
+                                            label: 'UNDO',
+                                            textColor: Colors.white,
+                                            onPressed: () {},
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: AzkarItem(state.data[i]));
+                  });
+
+              ////
             } else {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: Text(
+                  'لا يوجد شئ في المميزة',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
               );
             }
-          },
-        ),
+          } else if (state is GetFavouriteDataStateAfter) {
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: state.data.length,
+                itemBuilder: (c, i) {
+                  return InkWell(
+                      onLongPress: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return Wrap(
+                              children: [
+                                ListTile(
+                                  leading: const Icon(Icons.delete),
+                                  title: const Text('حذف من المميزة'),
+                                  onTap: () {
+                                    context
+                                        .read<HomeScreenCubit>()
+                                        .removeFromFavourite(i);
+                                    Navigator.pop(context);
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: const Text(
+                                          'تم الحذف',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.white, // لون النص
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        backgroundColor: Colors.teal,
+                                        behavior: SnackBarBehavior.floating,
+                                        margin: const EdgeInsets.all(16),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        duration: const Duration(seconds: 2),
+                                        action: SnackBarAction(
+                                          label: 'UNDO',
+                                          textColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: AzkarItem(state.data[i]));
+                });
+          } else {
+            return const Center(
+              child: Text(
+                'لا يوجد شئ في المميزة',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            );
+          }
+        },
       ),
     );
   }

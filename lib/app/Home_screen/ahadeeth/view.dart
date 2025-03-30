@@ -52,7 +52,6 @@ class _HadithScreenState extends State<HadithScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('الأحاديث'),
-        backgroundColor: Colors.teal,
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())

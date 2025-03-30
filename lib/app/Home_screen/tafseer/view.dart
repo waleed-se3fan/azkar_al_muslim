@@ -35,7 +35,10 @@ class TafseerListScreen extends StatelessWidget {
                       hintStyle: TextStyle(color: Colors.grey.shade300),
                       prefixIcon: const Icon(Icons.search, color: Colors.white),
                       filled: true,
-                      fillColor: Colors.teal.shade700,
+                      fillColor:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Colors.teal.shade700
+                              : null,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
@@ -88,30 +91,24 @@ class TafserAyatScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           surahName,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
         ),
-        backgroundColor: Colors.teal[600],
-        elevation: 2,
-        centerTitle: true,
       ),
       body: BlocProvider(
         create: (context) =>
             HomeScreenCubit()..getQuraanwithTafseer(newindex.toString()),
         child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.teal[100]!,
-                Colors.teal[50]!,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
+          decoration: Theme.of(context).brightness == Brightness.light
+              ? BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.teal[100]!,
+                      Colors.teal[50]!,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                )
+              : null,
           child: BlocBuilder<HomeScreenCubit, HomeScreenState>(
             builder: (context, state) {
               return state is GetQuranWithTafseerSuccess
@@ -155,7 +152,7 @@ class TafserAyatScreen extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.teal[900],
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -169,7 +166,7 @@ class TafserAyatScreen extends StatelessWidget {
                                   state.tafseerList[index].translation,
                                   textAlign: TextAlign.right,
                                   style: const TextStyle(
-                                      fontSize: 16, color: Colors.black87),
+                                      fontSize: 16, color: Colors.white),
                                 ),
                               ),
                               const Divider(thickness: 1),
@@ -178,7 +175,7 @@ class TafserAyatScreen extends StatelessWidget {
                                 children: [
                                   IconButton(
                                     icon: const Icon(Icons.copy,
-                                        color: Colors.teal),
+                                        color: Colors.white),
                                     onPressed: () {
                                       Clipboard.setData(ClipboardData(
                                           text: state
@@ -196,7 +193,7 @@ class TafserAyatScreen extends StatelessWidget {
                                   ),
                                   IconButton(
                                     icon: const Icon(Icons.share_outlined,
-                                        color: Colors.teal),
+                                        color: Colors.white),
                                     onPressed: () {
                                       FlutterShare.share(
                                           title: 'مشاركة',
